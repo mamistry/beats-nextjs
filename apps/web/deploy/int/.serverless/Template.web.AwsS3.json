@@ -1,0 +1,6 @@
+{
+  "name": "gsp-int-nextjs-bucket",
+  "region": "us-east-1",
+  "accelerated": true,
+  "url": "https://gsp-int-nextjs-bucket.s3.amazonaws.com"
+}

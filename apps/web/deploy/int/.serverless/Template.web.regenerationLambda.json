@@ -1,0 +1,17 @@
+{
+  "name": "gsp-int-nextjs-bucket",
+  "hash": "1+8Cu52dvYLi3Hw2F6SZ/tGUHaPf3G0MK+OWSD949dg=",
+  "description": "Next.js Regeneration Lambda",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/Users/mamistry/github/gsp-nextjs/apps/web/deploy/.serverless_nextjs/regeneration-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs14.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::152471664880:role/4zdldb-i0oycwg"
+  },
+  "arn": "arn:aws:lambda:us-east-1:152471664880:function:gsp-int-nextjs-bucket",
+  "region": "us-east-1"
+}

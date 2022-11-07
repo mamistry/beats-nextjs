@@ -1,0 +1,45 @@
+{
+   "env": {
+      "NPM_EMAIL": "${{ secrets.NPM_EMAIL }}",
+      "NPM_PASSWORD": "${{ secrets.NPM_PASSWORD }}",
+      "NPM_USERNAME": "${{ secrets.NPM_USERNAME }}"
+   },
+   "jobs": {
+      "Test": {
+         "name": "Test",
+         "runs-on": "ubuntu-latest",
+         "steps": [
+            {
+               "name": "Checkout",
+               "uses": "actions/checkout@v2",
+               "with": {
+                  "fetch-depth": 1,
+                  "token": "${{ secrets.GITHUB_TOKEN }}"
+               }
+            },
+            {
+               "name": "Install node.js",
+               "uses": "actions/setup-node@v1",
+               "with": {
+                  "node-version": "14.x"
+               }
+            },
+            {
+               "uses": "c-hive/gha-yarn-cache@v2"
+            },
+            {
+               "name": "Running Test",
+               "run": "yarn top-jfrog-login\nyarn\nyarn lint\nyarn test\n"
+            }
+         ]
+      }
+   },
+   "name": "Continious Integration",
+   "on": {
+      "push": {
+         "branches": [
+            "main"
+         ]
+      }
+   }
+}

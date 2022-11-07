@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - https://sports-fed-api.stage.nonprod.wmsports.io/graphql:
+      headers:
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL2FwaS9ncmFwaHFsIjp7InJvbGVzIjpbImRpcmVjdG9yIl0sInBlcm1pc3Npb25zIjpbInJlYWQ6YW55X3VzZXIiLCJyZWFkOm93bl91c2VyIl19LCJpYXQiOjE2NTMzMzUwNjIsImV4cCI6MTY2MTExMTA2Miwic3ViIjoiMTIzNDUifQ.zsn_Vx5eK_2iIyypR1MleEvQHgU_rK9CTwmRxGrbNFQ
+generates:
+  libs/data-access/src/lib/Apollo/generated/generated.tsx:
+    documents: "libs/data-access/src/lib/Apollo/queries/**/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false

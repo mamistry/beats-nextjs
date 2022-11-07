@@ -1,0 +1,25 @@
+{
+   "web": {
+      "component": "@sls-next/serverless-component@3.6.0",
+      "inputs": {
+         "bucketName": "gsp-int-nextjs-bucket",
+         "build": {
+            "args": "",
+            "cmd": "./build.sh"
+         },
+         "cloudfront": {
+            "aliases": [
+               "gsp-nextjs-bp-int.nonprod.wmsports.io"
+            ],
+            "certificate": {
+               "acmCertificateArn": "arn:aws:acm:us-east-1:152471664880:certificate/2c319a14-499e-4f0e-8df4-5012a620a812"
+            },
+            "defaults": {
+               "viewerProtocolPolicy": "redirect-to-https"
+            }
+         },
+         "domain": "gsp-nextjs-bp-int.nonprod.wmsports.io",
+         "nextConfigDir": "../"
+      }
+   }
+}

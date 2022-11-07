@@ -1,0 +1,25 @@
+query getAllVideos( $tenant: Tenant! ) {
+  getAllVideos(tenant: $tenant) {
+    _id
+    thumbnail
+    mediaId
+    title
+    headline
+    subHeadline
+  }
+}
+
+query getVideoById($tenant: Tenant!, $id: String) {
+  getVideoById(tenant: $tenant, id: $id) {
+    _id
+    headline
+    subHeadline
+    thumbnail
+    mediaId
+    title
+    created
+    sortDate
+    duration
+    __typename
+  }
+}

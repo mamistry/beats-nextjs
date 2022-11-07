@@ -1,0 +1,46 @@
+{
+  "name": "4zdldb-i0oycwg",
+  "arn": "arn:aws:iam::152471664880:role/4zdldb-i0oycwg",
+  "service": [
+    "lambda.amazonaws.com"
+  ],
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Resource": "*",
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Resource": "arn:aws:s3:::gsp-int-nextjs-bucket/*",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Resource": "arn:aws:sqs:us-east-1:152471664880:gsp-int-nextjs-bucket.fifo",
+        "Action": [
+          "sqs:SendMessage"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Resource": "arn:aws:sqs:us-east-1:152471664880:gsp-int-nextjs-bucket.fifo",
+        "Action": [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+      }
+    ]
+  },
+  "region": "us-east-1"
+}

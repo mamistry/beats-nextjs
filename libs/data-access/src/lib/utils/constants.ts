@@ -1,0 +1,1 @@
+export const FEDERATED_TOKEN = 'FEDERATED_TOKEN';
