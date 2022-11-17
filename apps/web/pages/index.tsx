@@ -1,6 +1,7 @@
 import styles from './index.module.css';
+import getLayout from '../layouts';
 
-export function Index() {
+const Index = (props) => {
   /*
    * Replace the elements below with your own.
    *
@@ -411,5 +412,7 @@ export function Index() {
     </div>
   );
 }
+
+Index.PageLayout = getLayout;
 
 export default Index;

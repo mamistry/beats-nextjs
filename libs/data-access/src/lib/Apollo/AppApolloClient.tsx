@@ -12,10 +12,10 @@ import { useMemo } from 'react';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const cache = new InMemoryCache();
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL2FwaS9ncmFwaHFsIjp7InJvbGVzIjpbImRpcmVjdG9yIl0sInBlcm1pc3Npb25zIjpbInJlYWQ6YW55X3VzZXIiLCJyZWFkOm93bl91c2VyIl19LCJpYXQiOjE2NTMzMzUwNjIsImV4cCI6MTY2MTExMTA2Miwic3ViIjoiMTIzNDUifQ.zsn_Vx5eK_2iIyypR1MleEvQHgU_rK9CTwmRxGrbNFQ';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL2FwaS9ncmFwaHFsIjp7InJvbGVzIjpbImRpcmVjdG9yIl0sInBlcm1pc3Npb25zIjpbInJlYWQ6YW55X3VzZXIiLCJyZWFkOm93bl91c2VyIl19LCJpYXQiOjE2NjEyMDU1MTMsImV4cCI6MTY2ODk4MTUxMywic3ViIjoiMTIzNDUifQ.7jJf41YLxE_KVESgULd2RqlUTs1umQ7UVe_71wr0PJU';
 
 const link = createHttpLink({
-  uri: 'https://sports-fed-api.stage.nonprod.wmsports.io/graphql',
+  uri: 'https://sports-federated-api-gw.int.nonprod.wmsports.io/graphql',
   headers: {
     authorization: token ? `Bearer ${token}` : '',
   },

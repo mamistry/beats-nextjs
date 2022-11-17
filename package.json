@@ -2,16 +2,29 @@
   "name": "gsp-nextjs",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  },
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
     "top-jfrog-login": "npx npm-cli-login -u $NPM_USERNAME -p $NPM_PASSWORD -e $NPM_EMAIL -s '@top' -r https://soarin.jfrog.io/soarin/api/npm/nexus-development-local",
-    "lint": "nx workspace-lint && nx lint"
+    "lint": "nx workspace-lint && nx lint",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/lab": "^5.0.0-alpha.107",
+    "@mui/material": "^5.10.13",
+    "@mui/styles": "^5.10.10",
     "@nrwl/next": "14.1.7",
     "@top/player-block-web": "^2.11.2-0",
     "core-js": "^3.6.5",
@@ -25,6 +38,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "7.12.13",
+    "@babel/preset-typescript": "7.12.13",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript-operations": "^2.4.0",
     "@graphql-codegen/typescript-react-apollo": "^3.2.14",
@@ -34,8 +49,15 @@
     "@nrwl/jest": "14.1.7",
     "@nrwl/linter": "14.1.7",
     "@nrwl/react": "14.1.7",
+    "@nrwl/storybook": "15.0.11",
     "@nrwl/web": "14.1.7",
     "@nrwl/workspace": "14.1.7",
+    "@storybook/addon-essentials": "~6.5.9",
+    "@storybook/builder-webpack5": "~6.5.9",
+    "@storybook/core-server": "~6.5.9",
+    "@storybook/manager-webpack5": "~6.5.9",
+    "@storybook/react": "~6.5.9",
+    "@svgr/webpack": "^5.4.0",
     "@testing-library/react": "13.1.1",
     "@types/jest": "27.4.1",
     "@types/node": "16.11.7",
@@ -44,6 +66,7 @@
     "@typescript-eslint/eslint-plugin": "~5.18.0",
     "@typescript-eslint/parser": "~5.18.0",
     "babel-jest": "27.5.1",
+    "babel-loader": "8.1.0",
     "cypress": "^9.1.0",
     "eslint": "~8.12.0",
     "eslint-config-next": "12.1.5",
@@ -53,6 +76,7 @@
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.5.0",
+    "husky": "^8.0.2",
     "jest": "27.5.1",
     "nx": "14.1.7",
     "prettier": "^2.5.1",
@@ -60,6 +84,7 @@
     "serverless": "2.72.2",
     "ts-jest": "27.1.4",
     "ts-node": "9.1.1",
-    "typescript": "~4.6.2"
+    "typescript": "~4.6.2",
+    "url-loader": "^3.0.0"
   }
 }

@@ -1,10 +1,17 @@
-import { AppProps } from 'next/app';
+import { AppContext, AppInitialProps, AppLayoutProps, AppProps } from 'next/app';
+import type { NextComponentType, NextLayoutComponentType } from 'next';
 import Head from 'next/head';
 import './styles.css';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '@gsp-nextjs/data-access';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: AppProps["Component"] & {
+    PageLayout?: NextLayoutComponentType;
+  }
+}
+
+const CustomApp:NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({ Component, pageProps }: AppPropsWithLayout) => {
   const client = useApollo(pageProps.initialApolloState); 
   
   return (
@@ -14,7 +21,13 @@ function CustomApp({ Component, pageProps }: AppProps) {
       </Head>
       <main className="app">
         <ApolloProvider client={client}>
-         <Component {...pageProps} />
+         {Component.PageLayout ? (
+            <Component.PageLayout>
+              <Component {...pageProps} />
+            </Component.PageLayout>
+         ) :
+            <Component {...pageProps} />
+         }
         </ApolloProvider>
       </main>
     </>

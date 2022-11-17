@@ -1,6 +1,7 @@
 import styles from './index.module.css';
 import { GetStaticProps } from 'next';
 import { useGetAllVideosQuery, Tenant } from '@gsp-nextjs/data-access';
+import { VideoCard } from '@br/br-web-components';
 
 /* eslint-disable-next-line */
 export interface AboutProps {
@@ -11,7 +12,7 @@ export function About(props: AboutProps) {
   const { loading, error, data } = useGetAllVideosQuery({variables: { tenant: Tenant.EstadioChile}});
   if (loading) return <p>loading...</p>;
   if(error) { 
-    return <p>error!</p>;
+    return `<p>ERROR MESSAGE: ${error}</p>`;
   }
 
   return (
@@ -20,9 +21,8 @@ export function About(props: AboutProps) {
       <ul style={{ listStyleType: "none" }}>
         {data.getAllVideos.slice(0, 5).map((video)=> (
           <li key={video?.mediaId}>
-            <p>
-              <a href={`/videos/${video?._id}`}><img src={`${video?.thumbnail}`} width="300" height="200" /> : {video?.title}</a>
-            </p>
+            <VideoCard url="" img={video?.thumbnail} />
+            
           </li>
         ))}
       </ul>
