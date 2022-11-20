@@ -15,9 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@br/br-web-components": ["libs/br-web-components/src/index.ts"],
-      "@gsp-nextjs/data-access": ["libs/data-access/src/index.ts"],
-      "@gsp-nextjs/video": ["libs/video/src/index.ts"]
+      "@beats-nextjs/web-components": ["libs/web-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

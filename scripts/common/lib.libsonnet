@@ -43,7 +43,7 @@
         },
         {
           name: 'Download serverless state from S3',
-          run: "aws s3 sync s3://gsp-serverless-state-bucket/" + s3Bucket + "/.serverless apps/web/deploy/" + environment + "/.serverless"
+          run: "aws s3 sync s3://beats-nextjs-serverless-state-bucket/" + s3Bucket + "/.serverless apps/web/deploy/" + environment + "/.serverless"
         },
         {
           name: "Install and Deploy",
@@ -52,11 +52,11 @@
             SERVERALIAS: serverAlias,
             S3BUCKET: s3Bucket
           },
-          run: "yarn top-jfrog-login\nyarn install\nNODE_ENV=" + environment + " yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF\nyarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=" + environment
+          run: "yarn install\nNODE_ENV=" + environment + " yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF\nyarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=" + environment
         },
         {
           name: 'Upload serverless state from S3',
-          run: "aws s3 sync apps/web/deploy/" + environment + "/.serverless s3://gsp-serverless-state-bucket/" + s3Bucket + "/.serverless"
+          run: "aws s3 sync apps/web/deploy/" + environment + "/.serverless s3://beats-nextjs-serverless-state-bucket/" + s3Bucket + "/.serverless"
         },
       ]
     }

@@ -28,19 +28,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - uses: c-hive/gha-yarn-cache@v2
       - name: Download serverless state from S3
-        run: aws s3 sync s3://gsp-serverless-state-bucket/gsp-dev-nextjs-bucket/.serverless apps/web/deploy/dev/.serverless
+        run: aws s3 sync s3://beats-nextjs-serverless-state-bucket/beats-dev-nextjs-bucket/.serverless apps/web/deploy/dev/.serverless
       - env:
           ENV: dev
-          S3BUCKET: gsp-dev-nextjs-bucket
-          SERVERALIAS: gsp-nextjs-bp-dev.nonprod.wmsports.io
+          S3BUCKET: beats-dev-nextjs-bucket
+          SERVERALIAS: beats-nextjs-dev.testdomain.io
         name: Install and Deploy
         run: |-
-          yarn top-jfrog-login
           yarn install
           NODE_ENV=dev yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=dev
       - name: Upload serverless state from S3
-        run: aws s3 sync apps/web/deploy/dev/.serverless s3://gsp-serverless-state-bucket/gsp-dev-nextjs-bucket/.serverless
+        run: aws s3 sync apps/web/deploy/dev/.serverless s3://beats-nextjs-serverless-state-bucket/beats-dev-nextjs-bucket/.serverless
   Deploy-To-qa:
     environment:
       name: qa
@@ -66,19 +65,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - uses: c-hive/gha-yarn-cache@v2
       - name: Download serverless state from S3
-        run: aws s3 sync s3://gsp-serverless-state-bucket/gsp-qa-nextjs-bucket/.serverless apps/web/deploy/qa/.serverless
+        run: aws s3 sync s3://beats-nextjs-serverless-state-bucket/beats-qa-nextjs-bucket/.serverless apps/web/deploy/qa/.serverless
       - env:
           ENV: qa
-          S3BUCKET: gsp-qa-nextjs-bucket
-          SERVERALIAS: gsp-nextjs-bp-qa.nonprod.wmsports.io
+          S3BUCKET: beats-qa-nextjs-bucket
+          SERVERALIAS: beats-nextjs-qa.testdomain.io
         name: Install and Deploy
         run: |-
-          yarn top-jfrog-login
           yarn install
           NODE_ENV=qa yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=qa
       - name: Upload serverless state from S3
-        run: aws s3 sync apps/web/deploy/qa/.serverless s3://gsp-serverless-state-bucket/gsp-qa-nextjs-bucket/.serverless
+        run: aws s3 sync apps/web/deploy/qa/.serverless s3://beats-nextjs-serverless-state-bucket/beats-qa-nextjs-bucket/.serverless
   Test:
     name: Test
     runs-on: ubuntu-latest
@@ -95,7 +93,6 @@ jobs:
       - uses: c-hive/gha-yarn-cache@v2
       - name: Running Test
         run: |
-          yarn top-jfrog-login
           yarn
           yarn lint
           yarn test

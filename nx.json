@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "gsp-nextjs",
+  "npmScope": "beats-nextjs",
   "affected": {
     "defaultBase": "main"
   },

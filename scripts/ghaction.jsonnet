@@ -41,7 +41,6 @@ local triggerCondition = {
         {
           name: "Running Test",
           run: |||
-              yarn top-jfrog-login
               yarn
               yarn lint
               yarn test

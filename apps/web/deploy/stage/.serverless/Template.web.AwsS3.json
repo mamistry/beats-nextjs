@@ -1,6 +1,0 @@
-{
-  "name": "gsp-stage-nextjs-bucket",
-  "region": "us-east-1",
-  "accelerated": true,
-  "url": "https://gsp-stage-nextjs-bucket.s3.amazonaws.com"
-}

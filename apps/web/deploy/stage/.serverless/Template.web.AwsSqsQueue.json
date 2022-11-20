@@ -1,6 +1,0 @@
-{
-  "name": "gsp-stage-nextjs-bucket.fifo",
-  "arn": "arn:aws:sqs:us-east-1:152471664880:gsp-stage-nextjs-bucket.fifo",
-  "url": "https://sqs.us-east-1.amazonaws.com/152471664880/gsp-stage-nextjs-bucket.fifo",
-  "region": "us-east-1"
-}
