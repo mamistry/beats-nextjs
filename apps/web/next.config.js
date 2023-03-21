@@ -17,11 +17,15 @@ const nextConfig = {
     },
   },
   target: 'serverless',
+  images: {
+    domains: ['wallpaperset.com'],
+  },
   pwa: {
     dest: "public",
     register: true,
     skipWaiting: true,
   },
+  output: "standalone"
 };
 
 module.exports = withPWA(withNx(nextConfig));

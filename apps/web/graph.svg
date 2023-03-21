@@ -1,0 +1,225 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_cloudfront_distribution.cdn (expand)" [label = "aws_cloudfront_distribution.cdn", shape = "box"]
+		"[root] aws_cloudfront_origin_access_identity.my-oai (expand)" [label = "aws_cloudfront_origin_access_identity.my-oai", shape = "box"]
+		"[root] aws_cloudwatch_log_group.api_lambda (expand)" [label = "aws_cloudwatch_log_group.api_lambda", shape = "box"]
+		"[root] aws_cloudwatch_log_group.default_lambda (expand)" [label = "aws_cloudwatch_log_group.default_lambda", shape = "box"]
+		"[root] aws_cloudwatch_log_group.image_lambda (expand)" [label = "aws_cloudwatch_log_group.image_lambda", shape = "box"]
+		"[root] aws_cloudwatch_log_group.regeneration_lambda (expand)" [label = "aws_cloudwatch_log_group.regeneration_lambda", shape = "box"]
+		"[root] aws_iam_policy.lambda_s3_sqs (expand)" [label = "aws_iam_policy.lambda_s3_sqs", shape = "box"]
+		"[root] aws_iam_role.default_lambda_exec (expand)" [label = "aws_iam_role.default_lambda_exec", shape = "box"]
+		"[root] aws_iam_role.iam_for_lambda (orphan)" [label = "aws_iam_role.iam_for_lambda", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.attach-s3-sqs (expand)" [label = "aws_iam_role_policy_attachment.attach-s3-sqs", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.default_lambda_policy (expand)" [label = "aws_iam_role_policy_attachment.default_lambda_policy", shape = "box"]
+		"[root] aws_lambda_event_source_mapping.event_source_mapping (expand)" [label = "aws_lambda_event_source_mapping.event_source_mapping", shape = "box"]
+		"[root] aws_lambda_function.api_path (expand)" [label = "aws_lambda_function.api_path", shape = "box"]
+		"[root] aws_lambda_function.default_path (expand)" [label = "aws_lambda_function.default_path", shape = "box"]
+		"[root] aws_lambda_function.image_path (expand)" [label = "aws_lambda_function.image_path", shape = "box"]
+		"[root] aws_lambda_function.regeneration_path (expand)" [label = "aws_lambda_function.regeneration_path", shape = "box"]
+		"[root] aws_route53_record.cloudfront_alias_domain (expand)" [label = "aws_route53_record.cloudfront_alias_domain", shape = "box"]
+		"[root] aws_s3_bucket.beats-nextjs-bucket (expand)" [label = "aws_s3_bucket.beats-nextjs-bucket", shape = "box"]
+		"[root] aws_s3_bucket.lambda_bucket (expand)" [label = "aws_s3_bucket.lambda_bucket", shape = "box"]
+		"[root] aws_s3_bucket_acl.b_acl (expand)" [label = "aws_s3_bucket_acl.b_acl", shape = "box"]
+		"[root] aws_s3_bucket_object.dist (expand)" [label = "aws_s3_bucket_object.dist", shape = "box"]
+		"[root] aws_s3_bucket_policy.cdn-cf-policy (expand)" [label = "aws_s3_bucket_policy.cdn-cf-policy", shape = "box"]
+		"[root] aws_s3_bucket_public_access_block.lambda_bucket (expand)" [label = "aws_s3_bucket_public_access_block.lambda_bucket", shape = "box"]
+		"[root] aws_s3_object.lambda_api (expand)" [label = "aws_s3_object.lambda_api", shape = "box"]
+		"[root] aws_s3_object.lambda_default (expand)" [label = "aws_s3_object.lambda_default", shape = "box"]
+		"[root] aws_s3_object.lambda_image (expand)" [label = "aws_s3_object.lambda_image", shape = "box"]
+		"[root] aws_s3_object.lambda_regeneration (expand)" [label = "aws_s3_object.lambda_regeneration", shape = "box"]
+		"[root] aws_sqs_queue.sqs_beats_queue (expand)" [label = "aws_sqs_queue.sqs_beats_queue", shape = "box"]
+		"[root] data.archive_file.api_lambda (expand)" [label = "data.archive_file.api_lambda", shape = "box"]
+		"[root] data.archive_file.default_lambda (expand)" [label = "data.archive_file.default_lambda", shape = "box"]
+		"[root] data.archive_file.image_lambda (expand)" [label = "data.archive_file.image_lambda", shape = "box"]
+		"[root] data.archive_file.regeneration_lambda (expand)" [label = "data.archive_file.regeneration_lambda", shape = "box"]
+		"[root] data.aws_iam_policy_document.lambda_policy (expand)" [label = "data.aws_iam_policy_document.lambda_policy", shape = "box"]
+		"[root] data.aws_iam_policy_document.lambda_s3_sqs (expand)" [label = "data.aws_iam_policy_document.lambda_s3_sqs", shape = "box"]
+		"[root] data.aws_iam_policy_document.my-cdn-cf-policy (expand)" [label = "data.aws_iam_policy_document.my-cdn-cf-policy", shape = "box"]
+		"[root] data.aws_iam_policy_document.policy (orphan)" [label = "data.aws_iam_policy_document.policy", shape = "box"]
+		"[root] data.aws_route53_zone.custom_domain_zone (expand)" [label = "data.aws_route53_zone.custom_domain_zone", shape = "box"]
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" [label = "module.cloudfront_cert.aws_acm_certificate.this", shape = "box"]
+		"[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)" [label = "module.cloudfront_cert.aws_acm_certificate_validation.this", shape = "box"]
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" [label = "module.cloudfront_cert.aws_route53_record.validation", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/archive\"]" [label = "provider[\"registry.terraform.io/hashicorp/archive\"]", shape = "diamond"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1" [label = "provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1", shape = "diamond"]
+		"[root] var.custom_domain" [label = "var.custom_domain", shape = "note"]
+		"[root] var.custom_domain_zone_name" [label = "var.custom_domain_zone_name", shape = "note"]
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] aws_cloudfront_origin_access_identity.my-oai (expand)"
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] aws_lambda_function.api_path (expand)"
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] aws_lambda_function.default_path (expand)"
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] aws_lambda_function.image_path (expand)"
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] aws_cloudfront_distribution.cdn (expand)" -> "[root] module.cloudfront_cert.output.acm_certificate_arn (expand)"
+		"[root] aws_cloudfront_origin_access_identity.my-oai (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_cloudwatch_log_group.api_lambda (expand)" -> "[root] aws_lambda_function.api_path (expand)"
+		"[root] aws_cloudwatch_log_group.default_lambda (expand)" -> "[root] aws_lambda_function.default_path (expand)"
+		"[root] aws_cloudwatch_log_group.image_lambda (expand)" -> "[root] aws_lambda_function.image_path (expand)"
+		"[root] aws_cloudwatch_log_group.regeneration_lambda (expand)" -> "[root] aws_lambda_function.regeneration_path (expand)"
+		"[root] aws_iam_policy.lambda_s3_sqs (expand)" -> "[root] data.aws_iam_policy_document.lambda_s3_sqs (expand)"
+		"[root] aws_iam_role.default_lambda_exec (expand)" -> "[root] data.aws_iam_policy_document.lambda_policy (expand)"
+		"[root] aws_iam_role.iam_for_lambda (orphan)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_iam_role_policy_attachment.attach-s3-sqs (expand)" -> "[root] aws_iam_policy.lambda_s3_sqs (expand)"
+		"[root] aws_iam_role_policy_attachment.attach-s3-sqs (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_iam_role_policy_attachment.default_lambda_policy (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_lambda_event_source_mapping.event_source_mapping (expand)" -> "[root] aws_lambda_function.regeneration_path (expand)"
+		"[root] aws_lambda_event_source_mapping.event_source_mapping (expand)" -> "[root] aws_sqs_queue.sqs_beats_queue (expand)"
+		"[root] aws_lambda_function.api_path (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_lambda_function.api_path (expand)" -> "[root] aws_s3_object.lambda_api (expand)"
+		"[root] aws_lambda_function.api_path (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1"
+		"[root] aws_lambda_function.default_path (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_lambda_function.default_path (expand)" -> "[root] aws_s3_object.lambda_default (expand)"
+		"[root] aws_lambda_function.default_path (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1"
+		"[root] aws_lambda_function.image_path (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_lambda_function.image_path (expand)" -> "[root] aws_s3_object.lambda_image (expand)"
+		"[root] aws_lambda_function.image_path (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1"
+		"[root] aws_lambda_function.regeneration_path (expand)" -> "[root] aws_iam_role.default_lambda_exec (expand)"
+		"[root] aws_lambda_function.regeneration_path (expand)" -> "[root] aws_s3_object.lambda_regeneration (expand)"
+		"[root] aws_lambda_function.regeneration_path (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1"
+		"[root] aws_route53_record.cloudfront_alias_domain (expand)" -> "[root] aws_cloudfront_distribution.cdn (expand)"
+		"[root] aws_s3_bucket.beats-nextjs-bucket (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_s3_bucket.lambda_bucket (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_s3_bucket_acl.b_acl (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] aws_s3_bucket_object.dist (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] aws_s3_bucket_object.dist (expand)" -> "[root] module.template_files.output.files (expand)"
+		"[root] aws_s3_bucket_policy.cdn-cf-policy (expand)" -> "[root] data.aws_iam_policy_document.my-cdn-cf-policy (expand)"
+		"[root] aws_s3_bucket_public_access_block.lambda_bucket (expand)" -> "[root] aws_s3_bucket.lambda_bucket (expand)"
+		"[root] aws_s3_object.lambda_api (expand)" -> "[root] aws_s3_bucket.lambda_bucket (expand)"
+		"[root] aws_s3_object.lambda_api (expand)" -> "[root] data.archive_file.api_lambda (expand)"
+		"[root] aws_s3_object.lambda_default (expand)" -> "[root] aws_s3_bucket.lambda_bucket (expand)"
+		"[root] aws_s3_object.lambda_default (expand)" -> "[root] data.archive_file.default_lambda (expand)"
+		"[root] aws_s3_object.lambda_image (expand)" -> "[root] aws_s3_bucket.lambda_bucket (expand)"
+		"[root] aws_s3_object.lambda_image (expand)" -> "[root] data.archive_file.image_lambda (expand)"
+		"[root] aws_s3_object.lambda_regeneration (expand)" -> "[root] aws_s3_bucket.lambda_bucket (expand)"
+		"[root] aws_s3_object.lambda_regeneration (expand)" -> "[root] data.archive_file.regeneration_lambda (expand)"
+		"[root] aws_sqs_queue.sqs_beats_queue (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] data.archive_file.api_lambda (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/archive\"]"
+		"[root] data.archive_file.default_lambda (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/archive\"]"
+		"[root] data.archive_file.image_lambda (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/archive\"]"
+		"[root] data.archive_file.regeneration_lambda (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/archive\"]"
+		"[root] data.aws_iam_policy_document.lambda_policy (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] data.aws_iam_policy_document.lambda_s3_sqs (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] data.aws_iam_policy_document.lambda_s3_sqs (expand)" -> "[root] aws_sqs_queue.sqs_beats_queue (expand)"
+		"[root] data.aws_iam_policy_document.my-cdn-cf-policy (expand)" -> "[root] aws_cloudfront_origin_access_identity.my-oai (expand)"
+		"[root] data.aws_iam_policy_document.my-cdn-cf-policy (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] data.aws_route53_zone.custom_domain_zone (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] data.aws_route53_zone.custom_domain_zone (expand)" -> "[root] var.custom_domain_zone_name"
+		"[root] local.aliases (expand)" -> "[root] var.custom_domain"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.acm_certificate_arn (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.acm_certificate_domain_validation_options (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.acm_certificate_status (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.acm_certificate_validation_emails (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.distinct_domain_names (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.validation_domains (expand)"
+		"[root] module.cloudfront_cert (close)" -> "[root] module.cloudfront_cert.output.validation_route53_record_fqdns (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.local.create_certificate (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.var.certificate_transparency_logging_preference (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.var.domain_name (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.var.subject_alternative_names (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.var.tags (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] module.cloudfront_cert.var.validation_method (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate.this (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1"
+		"[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)" -> "[root] module.cloudfront_cert.aws_route53_record.validation (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)" -> "[root] module.cloudfront_cert.var.validation_record_fqdns (expand)"
+		"[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)" -> "[root] module.cloudfront_cert.var.wait_for_validation (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.local.distinct_domain_names (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.local.validation_domains (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.var.create_route53_records (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.var.dns_ttl (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.var.validate_certificate (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.var.validation_allow_overwrite_records (expand)"
+		"[root] module.cloudfront_cert.aws_route53_record.validation (expand)" -> "[root] module.cloudfront_cert.var.zone_id (expand)"
+		"[root] module.cloudfront_cert.local.create_certificate (expand)" -> "[root] module.cloudfront_cert.var.create_certificate (expand)"
+		"[root] module.cloudfront_cert.local.create_certificate (expand)" -> "[root] module.cloudfront_cert.var.putin_khuylo (expand)"
+		"[root] module.cloudfront_cert.local.distinct_domain_names (expand)" -> "[root] module.cloudfront_cert.var.domain_name (expand)"
+		"[root] module.cloudfront_cert.local.distinct_domain_names (expand)" -> "[root] module.cloudfront_cert.var.subject_alternative_names (expand)"
+		"[root] module.cloudfront_cert.local.validation_domains (expand)" -> "[root] module.cloudfront_cert.aws_acm_certificate.this (expand)"
+		"[root] module.cloudfront_cert.output.acm_certificate_arn (expand)" -> "[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)"
+		"[root] module.cloudfront_cert.output.acm_certificate_domain_validation_options (expand)" -> "[root] module.cloudfront_cert.aws_acm_certificate.this (expand)"
+		"[root] module.cloudfront_cert.output.acm_certificate_status (expand)" -> "[root] module.cloudfront_cert.aws_acm_certificate.this (expand)"
+		"[root] module.cloudfront_cert.output.acm_certificate_validation_emails (expand)" -> "[root] module.cloudfront_cert.aws_acm_certificate.this (expand)"
+		"[root] module.cloudfront_cert.output.distinct_domain_names (expand)" -> "[root] module.cloudfront_cert.local.distinct_domain_names (expand)"
+		"[root] module.cloudfront_cert.output.validation_domains (expand)" -> "[root] module.cloudfront_cert.local.validation_domains (expand)"
+		"[root] module.cloudfront_cert.output.validation_route53_record_fqdns (expand)" -> "[root] module.cloudfront_cert.aws_route53_record.validation (expand)"
+		"[root] module.cloudfront_cert.var.certificate_transparency_logging_preference (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.create_certificate (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.create_route53_records (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.dns_ttl (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.domain_name (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.domain_name (expand)" -> "[root] var.custom_domain"
+		"[root] module.cloudfront_cert.var.putin_khuylo (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.subject_alternative_names (expand)" -> "[root] local.aliases (expand)"
+		"[root] module.cloudfront_cert.var.subject_alternative_names (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.tags (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.tags (expand)" -> "[root] var.custom_domain"
+		"[root] module.cloudfront_cert.var.validate_certificate (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.validation_allow_overwrite_records (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.validation_method (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.validation_record_fqdns (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.wait_for_validation (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.cloudfront_cert.var.zone_id (expand)" -> "[root] data.aws_route53_zone.custom_domain_zone (expand)"
+		"[root] module.cloudfront_cert.var.zone_id (expand)" -> "[root] module.cloudfront_cert (expand)"
+		"[root] module.template_files (close)" -> "[root] module.template_files.output.files (expand)"
+		"[root] module.template_files (close)" -> "[root] module.template_files.output.files_in_memory (expand)"
+		"[root] module.template_files (close)" -> "[root] module.template_files.output.files_on_disk (expand)"
+		"[root] module.template_files.local.all_file_paths (expand)" -> "[root] module.template_files.var.base_dir (expand)"
+		"[root] module.template_files.local.file_suffix_matches (expand)" -> "[root] module.template_files.local.output_file_paths (expand)"
+		"[root] module.template_files.local.file_suffixes (expand)" -> "[root] module.template_files.local.file_suffix_matches (expand)"
+		"[root] module.template_files.local.file_types (expand)" -> "[root] module.template_files.local.file_suffixes (expand)"
+		"[root] module.template_files.local.file_types (expand)" -> "[root] module.template_files.var.default_file_type (expand)"
+		"[root] module.template_files.local.file_types (expand)" -> "[root] module.template_files.var.file_types (expand)"
+		"[root] module.template_files.local.files (expand)" -> "[root] module.template_files.local.file_types (expand)"
+		"[root] module.template_files.local.files (expand)" -> "[root] module.template_files.local.static_file_local_paths (expand)"
+		"[root] module.template_files.local.files (expand)" -> "[root] module.template_files.local.template_file_contents (expand)"
+		"[root] module.template_files.local.output_file_paths (expand)" -> "[root] module.template_files.local.template_file_paths (expand)"
+		"[root] module.template_files.local.static_file_local_paths (expand)" -> "[root] module.template_files.local.static_file_paths (expand)"
+		"[root] module.template_files.local.static_file_paths (expand)" -> "[root] module.template_files.local.all_file_paths (expand)"
+		"[root] module.template_files.local.static_file_paths (expand)" -> "[root] module.template_files.var.template_file_suffix (expand)"
+		"[root] module.template_files.local.template_file_contents (expand)" -> "[root] module.template_files.local.template_file_paths (expand)"
+		"[root] module.template_files.local.template_file_contents (expand)" -> "[root] module.template_files.var.template_vars (expand)"
+		"[root] module.template_files.local.template_file_paths (expand)" -> "[root] module.template_files.local.static_file_paths (expand)"
+		"[root] module.template_files.output.files (expand)" -> "[root] module.template_files.local.files (expand)"
+		"[root] module.template_files.output.files_in_memory (expand)" -> "[root] module.template_files.local.files (expand)"
+		"[root] module.template_files.output.files_on_disk (expand)" -> "[root] module.template_files.local.files (expand)"
+		"[root] module.template_files.var.base_dir (expand)" -> "[root] module.template_files (expand)"
+		"[root] module.template_files.var.default_file_type (expand)" -> "[root] module.template_files (expand)"
+		"[root] module.template_files.var.file_types (expand)" -> "[root] module.template_files (expand)"
+		"[root] module.template_files.var.template_file_suffix (expand)" -> "[root] module.template_files (expand)"
+		"[root] module.template_files.var.template_vars (expand)" -> "[root] module.template_files (expand)"
+		"[root] output.cdn_domain (expand)" -> "[root] aws_cloudfront_distribution.cdn (expand)"
+		"[root] output.s3_website_endpoint (expand)" -> "[root] aws_s3_bucket.beats-nextjs-bucket (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/archive\"] (close)" -> "[root] data.archive_file.api_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/archive\"] (close)" -> "[root] data.archive_file.default_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/archive\"] (close)" -> "[root] data.archive_file.image_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/archive\"] (close)" -> "[root] data.archive_file.regeneration_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_log_group.api_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_log_group.default_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_log_group.image_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_log_group.regeneration_lambda (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_iam_role.iam_for_lambda (orphan)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_iam_role_policy_attachment.attach-s3-sqs (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_iam_role_policy_attachment.default_lambda_policy (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_lambda_event_source_mapping.event_source_mapping (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route53_record.cloudfront_alias_domain (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_acl.b_acl (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_object.dist (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_policy.cdn-cf-policy (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_s3_bucket_public_access_block.lambda_bucket (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)" -> "[root] aws_lambda_function.api_path (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)" -> "[root] aws_lambda_function.default_path (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)" -> "[root] aws_lambda_function.image_path (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)" -> "[root] aws_lambda_function.regeneration_path (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)" -> "[root] module.cloudfront_cert.aws_acm_certificate_validation.this (expand)"
+		"[root] root" -> "[root] data.aws_iam_policy_document.policy (orphan)"
+		"[root] root" -> "[root] module.cloudfront_cert (close)"
+		"[root] root" -> "[root] module.template_files (close)"
+		"[root] root" -> "[root] output.cdn_domain (expand)"
+		"[root] root" -> "[root] output.s3_website_endpoint (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/archive\"] (close)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"].us_east_1 (close)"
+	}
+}
+

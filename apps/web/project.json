@@ -84,7 +84,83 @@
         "parallel": false,
         "commands": [
           {
-            "command": "cd apps/web/deploy/{args.env} && npx serverless",
+            "command": "cd apps/web/deploy/{args.env} && npx components-v1",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
+    "package": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "nx run web:build",
+            "forwardAllArgs": false
+          },
+          {
+            "command": "cd apps/web/deploy/{args.env} && npx serverless --component=targetComponent package",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
+    "build-tf": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "root": "apps/web",
+        "outputPath": "apps/web",
+        "commands": [
+          {
+            "command": "tf-next build --skipDownload"
+          }
+        ]
+      }
+    },
+    "deploy-tf": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "tf-next deploy --endpoint https://vxsxsurvl1.execute-api.us-west-2.amazonaws.com/",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
+    "init-tf": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "cd apps/web && terraform init",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
+    "plan-tf": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "cd apps/web && terraform plan",
+            "forwardAllArgs": false
+          }
+        ]
+      }
+    },
+    "apply-tf": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          {
+            "command": "cd apps/web && terraform apply",
             "forwardAllArgs": false
           }
         ]

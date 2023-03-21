@@ -12,9 +12,7 @@
     "next-pwa": "^5.5.2",
     "@apollo/client": "^3.6.5",
     "graphql": "^16.5.0",
-    "crypto-hash": "^1.3.0",
-    "@emotion/server": "^11.10.0",
-    "@top/player-block-web": "^2.11.2-0"
+    "@emotion/server": "^11.10.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

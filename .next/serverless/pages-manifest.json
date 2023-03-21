@@ -1,0 +1,7 @@
+{
+  "/": "pages/index.html",
+  "/_error": "pages/_error.js",
+  "/videos/[slug]": "pages/videos/[slug].js",
+  "/about": "pages/about.js",
+  "/404": "pages/404.html"
+}

@@ -80,6 +80,7 @@
     "prettier": "^2.5.1",
     "react-test-renderer": "18.1.0",
     "serverless": "2.72.2",
+    "tf-next": "^0.13.2",
     "ts-jest": "27.1.4",
     "ts-node": "9.1.1",
     "typescript": "~4.6.2",
