@@ -49,8 +49,13 @@ jobs:
           yarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=dev
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
-          terraform plan -var-file="./apps/web/deploy/development.tfvars" -detailed-exitcode -out=plan.tfplan apps/web
-          terraform apply plan.tfplan
+      - name: Terraform Plan - https://www.terraform.io/docs/commands/plan.html
+        id: plan
+        run: terraform plan -var-file="./apps/web/deploy/development.tfvars" -detailed-exitcode -out=plan.tfplan apps/web
+        continue-on-error: true
+      - name: Check for Plan Success
+        if: steps.plan.outputs.exitcode == 2
+        run: terraform apply plan.tfplan
   Deploy-To-qa:
     environment:
       name: qa
