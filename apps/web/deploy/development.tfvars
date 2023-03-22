@@ -1,2 +1,2 @@
-env=development
-custom_domain=br-nodereport-dev 
+env="development"
+custom_domain="br-nodereport-dev" 
