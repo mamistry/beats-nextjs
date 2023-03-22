@@ -1,1 +1,4 @@
 apps/web/public/*
+apps/web/deploy/.next/*
+apps/web/deploy/.serverless_nextjs/*
+apps/web/.terraform/*
