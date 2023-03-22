@@ -51,19 +51,19 @@ variable "lambda_array" {
   default = {    
     "default" = {
       name = "default",
-      source_dir = "deploy/.serverless_nextjs/default-lambda"
+      source_dir = "apps/web/deploy/.serverless_nextjs/default-lambda"
     }
     "image" = {
       name = "image",
-      source_dir = "deploy/.serverless_nextjs/image-lambda"
+      source_dir = "apps/web/deploy/.serverless_nextjs/image-lambda"
     }
     "api" = {
       name = "api",
-      source_dir = "deploy/.serverless_nextjs/api-lambda"
+      source_dir = "apps/web/deploy/.serverless_nextjs/api-lambda"
     }
     "regeneration" = {
       name = "regeneration",
-      source_dir = "deploy/.serverless_nextjs/regeneration-lambda"
+      source_dir = "apps/web/deploy/.serverless_nextjs/regeneration-lambda"
     }
   }
 }
