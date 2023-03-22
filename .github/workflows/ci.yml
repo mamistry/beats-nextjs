@@ -35,6 +35,10 @@ jobs:
           key: ${{ secrets.SSH_DEPLOY_KEY }}
           known_hosts: github.com
           name: id_rsa
+      - name: Install terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 0.14.8
       - uses: c-hive/gha-yarn-cache@v2
       - env:
           ENV: dev
@@ -44,36 +48,9 @@ jobs:
           NODE_ENV=dev yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=dev
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - name: 'Terraform Init'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: 'init'
-          tf_actions_working_dir: './apps/web'
-          tf_actions_comment: true
-          args: '-backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Plan'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: './apps/web'
-          tf_actions_comment: true
-          args: '-var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terraform Apply'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: 'apply'
-          tf_actions_working_dir: './apps/web'
-          tf_actions_comment: true
-          args: 'plan.tfplan'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
+          terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan apps/web
+          terraform apply plan.tfplan apps/web
   Deploy-To-qa:
     environment:
       name: qa
