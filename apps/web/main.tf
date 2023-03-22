@@ -79,7 +79,7 @@ variable "cloudfront_cert" {
 # Note: The bucket name needs to carry the same name as the domain!
 # http://stackoverflow.com/a/5048129/2966951
 resource "aws_s3_bucket" "beats-nextjs-bucket" {
-  bucket = "${terraform.workspace}-beats-nextjs"
+  bucket = "${var.env}-beats-nextjs"
 }
 
 resource "aws_cloudfront_origin_access_identity" "my-oai" {
@@ -120,11 +120,11 @@ module "template_files" {
 }
 
 module "cloudfront_s3" {
-  source                           = "git@github.com:warnermediacode/sports-terraform-aws-nextjs-module.git/"
+  source                           = "git@github.com:mamistry/tf-aws-nextjs.git"
   providers = {
     aws = aws.us_east_1
   }
-  environment                      = terraform.workspace
+  environment                      = var.env
   s3_bucket_regional_domain_name   = aws_s3_bucket.beats-nextjs-bucket.bucket_regional_domain_name
   s3_bucket_arn                    = aws_s3_bucket.beats-nextjs-bucket.arn
   custom_domain                    = var.custom_domain
