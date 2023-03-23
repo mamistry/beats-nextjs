@@ -112,7 +112,7 @@ data "aws_iam_policy_document" "my-cdn-cf-policy" {
 module "template_files" {
   source = "hashicorp/dir/template"
 
-  base_dir = "./deploy/.serverless_nextjs/assets"
+  base_dir = "apps/web/deploy/.serverless_nextjs/assets"
   template_vars = {
     # Pass in any values that you wish to use in your templates.
     vpc_id = "vpc-abc123"
