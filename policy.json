@@ -1,0 +1,172 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "acm:RequestCertificate",
+        "acm:ListCertificates",
+        "acm:DescribeCertificate",
+        "logs:GetLogRecord",
+        "logs:GetLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:DescribeQueryDefinitions",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeDestinations",
+        "logs:DescribeQueries",
+        "logs:GetQueryResults",
+        "logs:DescribeExportTasks",
+        "s3:GetAccountPublicAccessBlock",
+        "s3:ListAllMyBuckets",
+        "s3:GetAccessPoint",
+        "lambda:ListFunctions",
+        "lambda:ListEventSourceMappings",
+        "lambda:GetAccountSettings",
+        "lambda:CreateEventSourceMapping",
+        "lambda:ListLayerVersions",
+        "lambda:ListLayers",
+        "lambda:ListCodeSigningConfigs",
+        "cloudfront:ListPublicKeys",
+        "cloudfront:ListDistributions",
+        "cloudfront:ListFieldLevelEncryptionProfiles",
+        "cloudfront:ListStreamingDistributions",
+        "cloudfront:ListDistributionsByWebACLId",
+        "cloudfront:ListCloudFrontOriginAccessIdentities",
+        "cloudfront:ListFieldLevelEncryptionConfigs",
+        "cloudfront:ListDistributionsByLambdaFunction",
+        "route53:ListHostedZones",
+        "route53:ListHostedZonesByName",
+        "iam:AttachRolePolicy",
+        "iam:CreateRole",
+        "iam:CreatePolicy",
+        "iam:CreateServiceLinkedRole",
+        "iam:GetRole",
+        "iam:PutRolePolicy",
+        "iam:PassRole",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:DeleteRole",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListPolicyVersions",
+        "iam:DeletePolicy",
+        "iam:DetachRolePolicy"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "VisualEditor1",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateInvalidation",
+        "cloudfront:GetDistribution",
+        "cloudfront:GetDistributionConfig",
+        "cloudfront:TagResource",
+        "cloudfront:ListTagsForResource",
+        "cloudfront:ListInvalidations",
+        "cloudfront:DeleteCloudFrontOriginAccessIdentity",
+        "cloudfront:CreateCloudFrontOriginAccessIdentity",
+        "cloudfront:GetCloudFrontOriginAccessIdentity",
+        "cloudfront:UpdateDistribution",
+        "cloudfront:UntagResource",
+        "cloudfront:CreateDistribution",
+        "cloudfront:DeleteDistribution"
+      ],
+      "Resource": [
+        "arn:aws:cloudfront::*:origin-access-identity/br-nodereport-*"
+      ]
+    },
+    {
+      "Sid": "VisualEditor2",
+      "Effect": "Allow",
+      "Action": [
+        "s3:Get*",
+        "s3:CreateBucket",
+        "s3:PutObjectTagging",
+        "s3:DeleteObject",
+        "s3:PutBucketCORS",
+        "s3:DeleteBucketPolicy",
+        "s3:PutObject",
+        "s3:PutAccelerateConfiguration",
+        "s3:ListBucket",
+        "s3:PutEncryptionConfiguration",
+        "s3:PutBucketTagging",
+        "s3:DeleteBucket",
+        "s3:PutBucketVersioning",
+        "s3:PutBucketPublicAccessBlock",
+        "s3:PutBucketWebsite",
+        "s3:PutBucketPolicy"
+      ],
+      "Resource": [
+        "arn:aws:s3:::br-nodereport-*"
+      ]
+    },
+    {
+      "Sid": "VisualEditor3",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:CreateFunction", 
+        "lambda:TagResource",
+        "lambda:EnableReplication",
+        "lambda:DeleteFunction",
+        "lambda:UpdateFunctionConfiguration",
+        "lambda:Get*",
+        "lambda:PublishVersion",
+        "lambda:DeleteEventSourceMapping",
+        "lambda:UntagResource",
+        "lambda:UpdateFunctionCode",
+        "lambda:List*"
+      ],
+      "Resource": [
+        "arn:aws:lambda:*:*:function:br-nodereport-*:*"
+      ]
+    },
+    {
+      "Sid": "VisualEditor4",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:TagQueue",
+        "sqs:CreateQueue",
+        "sqs:SetQueueAttributes",
+        "sqs:UntagQueue",
+        "sqs:GetQueueAttributes",
+        "sqs:DeleteQueue",
+        "sqs:ListQueueTags"
+      ],
+      "Resource": [
+        "arn:aws:sqs:*:*:br-nodereport-*"
+      ]
+    },
+    {
+      "Sid": "VisualEditor5",
+      "Effect": "Allow",
+      "Action": [
+        "logs:PutRetentionPolicy",
+        "logs:List*",
+        "logs:Get*",
+        "logs:CreateLogGroup",
+        "logs:DeleteLogGroup",
+        "logs:Describe*"
+      ],
+      "Resource": [
+        "arn:aws:logs:*:*:log-group:br-nodereport-*"
+      ]
+    },
+    {
+      "Sid": "VisualEditor6",
+      "Effect": "Allow",
+      "Action": [
+        "route53:GetHostedZone",
+        "route53:ListResourceRecordSets",
+        "route53:ChangeResourceRecordSets",
+        "route53:GetChange",
+        "route53:ListTagsForResource"
+      ],
+      "Resource": [
+        "arn:aws:route53:::hostedzone/Z06628972TBI5UV1L9HS7"
+      ]
+    }
+  ]
+}
