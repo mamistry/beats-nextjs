@@ -13,6 +13,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    outputs:
+      random-number:
+        description: "Random number"
+        value: ${{ steps.affected.outputs.projects }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
