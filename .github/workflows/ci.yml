@@ -47,7 +47,7 @@ jobs:
         run: |-
           yarn install
           NODE_ENV=dev yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
-          echo "projects=$(yarn nx print-affected --base=$(git rev-parse @~) head=$GITHUB_REF --select=projects --exclude=web-e2e )" >> $GITHUB_OUTPUT
+          echo "projects=$(yarn nx print-affected --base=`git rev-parse @~` head=$GITHUB_REF --select=projects --exclude=web-e2e )" >> $GITHUB_OUTPUT
       - name: Check if run project
         if: contains(${{ steps.affected.outputs.project }}, 'web')
         run: |-
