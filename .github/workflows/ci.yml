@@ -39,13 +39,6 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::494055087689:role/GH_ACTION_BEATS_NEXTJS_REPO
           aws-region: us-east-1
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          if_key_exists: fail
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          known_hosts: github.com
-          name: id_rsa
       - name: Install terraform
         uses: little-core-labs/install-terraform@v2.0.0
         with:
