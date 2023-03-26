@@ -47,6 +47,7 @@ jobs:
       - env:
           ENV: ${{ inputs.service-env }}
         name: Install and Deploy
+        if: github.event_name == 'pull_request'
         id: affected
         run: |-
           yarn install
