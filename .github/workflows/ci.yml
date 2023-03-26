@@ -47,11 +47,16 @@ jobs:
         run: |-
           yarn install
           NODE_ENV=dev yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
-          echo "GITHUB_PROJECT_RUN=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects --exclude=web-e2e )" >> $GITHUB_ENV
+          echo "GITHUB_PROJECT_RUN=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects --exclude=web-e2e | tr ", " "\n" )" >> $GITHUB_ENV
+          echo $GITHUB_PROJECT_RUN
       - name: Check if run project
-        if: contains(env.GITHUB_PROJECT_RUN, 'web')
+        if: env.GITHUB_PROJECT_RUN | grep -x web == "web"
         run: |-
           echo $GITHUB_PROJECT_RUN
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
+          terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan apps/web
+          terraform apply plan.tfplan
   Deploy-To-qa:
     environment:
       name: qa
