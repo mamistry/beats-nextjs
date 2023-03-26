@@ -12,7 +12,6 @@ env:
   NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
   NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
   NPM_USERNAME: ${{ secrets.NPM_USERNAME }}
-  SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
 jobs:
   Deploy-To:
     environment:
@@ -45,7 +44,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           if_key_exists: fail
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          key: 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
           known_hosts: github.com
           name: id_rsa
       - name: Install terraform
