@@ -50,7 +50,7 @@ jobs:
           echo "GITHUB_PROJECT_RUN=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects --exclude=web-e2e | tr ", " "\n" )" >> $GITHUB_ENV
           echo $GITHUB_PROJECT_RUN
       - name: Check if run project
-        if: env.GITHUB_PROJECT_RUN | grep -x web == "web"
+        if: $(env.GITHUB_PROJECT_RUN | grep -x web) == "web"
         run: |-
           echo $GITHUB_PROJECT_RUN
           ssh-keyscan github.com >> ~/.ssh/known_hosts
