@@ -39,6 +39,13 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::494055087689:role/GH_ACTION_BEATS_NEXTJS_REPO
           aws-region: us-east-1
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          if_key_exists: fail
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          known_hosts: github.com
+          name: id_rsa
       - name: Install terraform
         uses: little-core-labs/install-terraform@v2.0.0
         with:
@@ -57,6 +64,7 @@ jobs:
         if: env.GITHUB_WEB_DEPLOY == 'web' && github.event_name == 'pull_request'
         run: |-
           echo $GITHUB_WEB_DEPLOY
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
           terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
           terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
