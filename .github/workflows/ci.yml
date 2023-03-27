@@ -56,6 +56,7 @@ jobs:
         id: install
         run: |-
           echo ${{ github.event_name }}
+          yarn install
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
           echo ${{ env.GITHUB_WEB_DEPLOY }}
         # run: |-
