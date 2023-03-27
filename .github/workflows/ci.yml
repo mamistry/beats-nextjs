@@ -54,16 +54,14 @@ jobs:
           ENV: ${{ inputs.service-env }}
         name: Install and Deploy
         id: affected
-        run: echo ${{ secrets.SSH_DEPLOY_KEY }} 
-        # run: |-
-        #   echo ${{ github.event.pull_request.state }}
-        #   yarn install
-        #   NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
-        #   echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
-      - name: Check if run project
-        if: ${{ github.event.pull_request.state }} == 'open'
         run: |-
-          echo ${{ secrets.SSH_DEPLOY_KEY }}
+          echo ${{ github.event.pull_request.state }}
+          yarn install
+          NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
+          echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
+      - name: Check if run project
+        if: env.GITHUB_WEB_DEPLOY == 'web' && ${{ github.event.pull_request.state }} == 'open'
+        run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
           terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
