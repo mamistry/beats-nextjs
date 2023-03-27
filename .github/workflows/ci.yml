@@ -23,14 +23,12 @@ jobs:
     permissions:
       id-token: write
       contents: read
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install node.js
         uses: actions/setup-node@v1
         with:
