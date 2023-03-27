@@ -44,7 +44,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           if_key_exists: fail
-          key:  ${{ secrets.SSH_DEPLOY_KEY }}
+          key:  ${{ vars.SSH_DEPLOY_KEY }}
           known_hosts: github.com
           name: id_rsa
       - name: Install terraform
