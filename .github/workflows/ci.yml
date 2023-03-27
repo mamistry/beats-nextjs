@@ -59,8 +59,8 @@ jobs:
         run: |-
           echo ${{ github.event_name }}
           yarn install
-          NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=HEAD
-          echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=HEAD --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
+          NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=$GITHUB_REF
+          echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
       - name: Check if run project
         if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.event_name == 'pull_request') }}
         run: |-
