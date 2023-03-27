@@ -55,8 +55,9 @@ jobs:
         name: Install and Deploy
         id: install
         run: |-
-          echo ${{ github.event.pull_request.state }}
+          echo ${{ github.event_name }}
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
+          echo ${{ env.GITHUB_WEB_DEPLOY }}
         # run: |-
         #   echo ${{ github.event.pull_request.state }}
         #   yarn install
