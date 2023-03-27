@@ -23,6 +23,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -60,15 +61,16 @@ jobs:
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base="$(git rev-parse @~)" head=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
       - name: Check if run project
-        if: env.GITHUB_WEB_DEPLOY == 'web' && ${{ github.event.pull_request.state }} == 'open'
+        if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.event_name == 'pull_request') }}
         run: |-
+          echo ${{env.GITHUB_WEB_DEPLOY}}
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
           terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
           terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
       - name: Update Pull Request
         uses: actions/github-script@v6
-        if: ${{ github.event.pull_request.state }} == 'open'
+        if: ${{ github.event_name == 'pull_request' }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -110,7 +112,7 @@ jobs:
               })
             }
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: ${{ github.event_name == 'push' }}
         run: echo "terraform apply"
   Test:
     name: Test
