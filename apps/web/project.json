@@ -100,7 +100,7 @@
             "forwardAllArgs": false
           },
           {
-            "command": "cd apps/web/deploy/{args.env} && npx serverless --component=targetComponent package",
+            "command": "cd apps/web/deploy/{args.env} && npx components-v1",
             "forwardAllArgs": false
           }
         ]

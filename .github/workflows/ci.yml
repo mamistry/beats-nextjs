@@ -60,6 +60,7 @@ jobs:
           echo ${{ github.event_name }}
           yarn install
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=$GITHUB_REF
+          yarn nx affected --target=deploy --base=remotes/origin/main HEAD=$GITHUB_REF --env=${{ inputs.service-env }}
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
       - name: Check if run project
         if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.event_name == 'pull_request') }}
@@ -67,7 +68,7 @@ jobs:
           echo ${{env.GITHUB_WEB_DEPLOY}}
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
-          terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
+          terraform plan -var-file="./apps/web/deploy/"${{ inputs.service-env }}".tfvars" -out=plan.tfplan -input=false -no-color apps/web
           terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
       - name: Update Pull Request
         uses: actions/github-script@v6

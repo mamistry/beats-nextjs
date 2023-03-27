@@ -1,19 +1,8 @@
 web:
   component: '@sls-next/serverless-component@3.7.0-alpha.11'
   inputs:
-    deploy: false
-    bucketName: br-blockletes-dev-nextjs-bucket
     build:
       args: ""
       cmd: ./build.sh
-    cloudfront:
-      aliases:
-        - gsp-nextjs-bp-dev.nonprod.wmsports.io
-      certificate:
-        acmCertificateArn: arn:aws:acm:us-east-1:152471664880:certificate/2c319a14-499e-4f0e-8df4-5012a620a812
-      defaults:
-        viewerProtocolPolicy: redirect-to-https
-    domain:
-      - gsp-nextjs-bp-dev
-      - nonprod.wmsports.io
+    deploy: false
     nextConfigDir: ../
