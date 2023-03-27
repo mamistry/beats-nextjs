@@ -86,7 +86,3 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 name: Continious Integration
-on:
-  push:
-    branches:
-      - main

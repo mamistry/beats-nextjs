@@ -42,7 +42,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           if_key_exists: fail
-          key:  ${{ secrets.SSH_DEPLOY_KEY }}
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
           known_hosts: github.com
           name: id_rsa
       - name: Install terraform
@@ -63,7 +63,7 @@ jobs:
       - name: Check if run project
         if: ${{ github.event.pull_request.state }} == 'open'
         run: |-
-          echo  ${{ secrets.SSH_DEPLOY_KEY }}
+          echo ${{ secrets.SSH_DEPLOY_KEY }}
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
           terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
