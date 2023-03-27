@@ -44,8 +44,7 @@ jobs:
           ENV: dev
         name: Install and Deploy
         id: affected
-        run: |-
-          echo ${{ secrets.SSH_DEPLOY_KEY }}
+        run: terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
   Deploy-To-qa:
     environment:
       name: qa
