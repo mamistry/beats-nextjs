@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install node.js
         uses: actions/setup-node@v1
@@ -57,7 +57,7 @@ jobs:
         name: Install and Deploy
         id: install
         run: |-
-          echo ${{ github.event.pull_request.state }}
+          echo ${{ github.event_name }}
           yarn install
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
