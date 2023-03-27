@@ -67,7 +67,7 @@ jobs:
       - name: Check if run project
         if: env.GITHUB_WEB_DEPLOY == 'web' && ${{ github.event.pull_request.state }} == 'open'
         run: |-
-          echo $GITHUB_WEB_DEPLOY 
+          echo ${{env.GITHUB_WEB_DEPLOY}}
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2" apps/web
           terraform plan -var-file="./apps/web/deploy/development.tfvars" -out=plan.tfplan -input=false -no-color apps/web
