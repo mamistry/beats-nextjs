@@ -128,7 +128,7 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
         working-directory: ./apps/web
-        run: echo "terraform apply tf.plan"
+        run: terraform apply tf.plan
   Test:
     name: Test
     runs-on: ubuntu-latest
