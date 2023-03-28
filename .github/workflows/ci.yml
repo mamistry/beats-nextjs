@@ -93,7 +93,7 @@ jobs:
               return comment.user.type === 'Bot' && comment.body.includes('# Terraform Plan for ${{ inputs.service-env }}')
             })
             const fs = require("fs");
-            const plan = fs.readFileSync("/apps/web/plan.txt", "utf8");
+            const plan = fs.readFileSync("plan.txt", "utf8");
             let output = `# Terraform Plan for ${{ inputs.service-env }}
             #### Terraform Plan (may be truncated to 100kbytes)
             <details><summary>Show Plan</summary>
