@@ -1,0 +1,85 @@
+
+name: Terraform Apply
+
+on:
+  workflow_call:
+    inputs:
+      service-env:
+        required: true
+        type: string
+        
+env:
+  NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+  NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
+  NPM_USERNAME: ${{ secrets.NPM_USERNAME }}
+jobs:
+  Deploy-To:
+    environment:
+      name: ${{ inputs.service-env }}
+    name: Deploy to ${{ inputs.service-env }}
+    needs:
+      - Test
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: arn:aws:iam::494055087689:role/GH_ACTION_BEATS_NEXTJS_REPO
+          aws-region: us-east-1
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          if_key_exists: fail
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          known_hosts: github.com
+          name: id_rsa
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 0.14.8
+          terraform_wrapper: false
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - run: git fetch origin main
+      - name: Install packages
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+      - env:
+          ENV: ${{ inputs.service-env }}
+        name: Install and Deploy
+        id: install
+        run: |-
+          NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
+          yarn nx affected --target=deploy --base=$(git rev-parse @~) HEAD=$GITHUB_REF --env=default
+          echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
+      - name: Terraform Apply
+        if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.ref == 'refs/heads/main') && (github.event_name == 'push') }}
+        working-directory: ./apps/web
+        run: |-
+          terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
+          terraform apply -auto-approve -input=false
+  Test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}

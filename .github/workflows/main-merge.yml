@@ -1,0 +1,11 @@
+name: pr builds for dev
+on:
+  push:
+    branches:
+      - main
+jobs:
+  nonprod-pr-dev:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      service-env: int
