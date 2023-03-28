@@ -75,15 +75,13 @@ jobs:
         working-directory: ./apps/web
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"
-          terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -input=false -no-color -compact-warnings > plan.out 2>&1 || { echo "Error occurred while executing 'terraform plan' command"; cat plan.out; exit 1; }
-          echo "PLAN<<$EOF" >> $GITHUB_ENV
-          tail --bytes=100000 plan.out >> $GITHUB_ENV
-          echo "$EOF" >> $GITHUB_ENV
+          terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -input=false -no-color -compact-warnings -out=tf.plan
+          terraform show -no-color tf.plan 2>&1 > plan.txt
       - name: Update Pull Request
         uses: actions/github-script@v6
         if: ${{ github.event_name == 'pull_request' }}
+        working-directory: ./apps/web
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -95,10 +93,12 @@ jobs:
             const botComment = comments.find(comment => {
               return comment.user.type === 'Bot' && comment.body.includes('# Terraform Plan for ${{ inputs.service-env }}')
             })
+            const fs = require("fs");
+            const plan = fs.readFileSync("plan.txt", "utf8");
             let output = `# Terraform Plan for ${{ inputs.service-env }}
             #### Terraform Plan (may be truncated to 100kbytes)
             <details><summary>Show Plan</summary>
-            \`\`\`hcl\n${process.env.PLAN}\n\`\`\`
+            \`\`\`\n${plan}\n\`\`\`
             </details>
             `;
             if (process.env.FMT) {
@@ -127,7 +127,7 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
         working-directory: ./apps/web
-        run: echo "terraform apply plan.out"
+        run: echo "terraform apply tf.plan"
   Test:
     name: Test
     runs-on: ubuntu-latest
