@@ -51,19 +51,19 @@ variable "lambda_array" {
   default = {    
     "default" = {
       name = "default",
-      source_dir = "apps/web/deploy/.serverless_nextjs/default-lambda"
+      source_dir = "deploy/.serverless_nextjs/default-lambda"
     }
     "image" = {
       name = "image",
-      source_dir = "apps/web/deploy/.serverless_nextjs/image-lambda"
+      source_dir = "deploy/.serverless_nextjs/image-lambda"
     }
     "api" = {
       name = "api",
-      source_dir = "apps/web/deploy/.serverless_nextjs/api-lambda"
+      source_dir = "deploy/.serverless_nextjs/api-lambda"
     }
     "regeneration" = {
       name = "regeneration",
-      source_dir = "apps/web/deploy/.serverless_nextjs/regeneration-lambda"
+      source_dir = "deploy/.serverless_nextjs/regeneration-lambda"
     }
   }
 }
@@ -112,7 +112,7 @@ data "aws_iam_policy_document" "my-cdn-cf-policy" {
 module "template_files" {
   source = "hashicorp/dir/template"
 
-  base_dir = "apps/web/deploy/.serverless_nextjs/assets"
+  base_dir = "deploy/.serverless_nextjs/assets"
   template_vars = {
     # Pass in any values that you wish to use in your templates.
     vpc_id = "vpc-abc123"
