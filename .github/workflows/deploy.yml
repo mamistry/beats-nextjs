@@ -73,7 +73,7 @@ jobs:
         working-directory: ./apps/web
         run: |-
           terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
-          terraform apply -auto-approve -input=false
+          terraform apply -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -auto-approve -input=false
   Test:
     name: Test
     runs-on: ubuntu-latest
