@@ -68,8 +68,8 @@ jobs:
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"
-          terraform plan -var-file="./apps/web/deploy/"${{ inputs.service-env }}".tfvars" -out=tf.plan -input=false -no-color
-          terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
+          terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -out=tf.plan -input=false -no-color
+          terraform show -no-color tf.plan 2>&1 > plan.txt
       - name: Update Pull Request
         uses: actions/github-script@v6
         if: ${{ github.event_name == 'pull_request' }}
