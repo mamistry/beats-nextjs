@@ -12,4 +12,4 @@ jobs:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
     with:
-      service-env: dev
+      service-env: int
