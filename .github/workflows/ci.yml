@@ -50,15 +50,22 @@ jobs:
         with:
           terraform_version: 0.14.8
           terraform_wrapper: false
-      - uses: c-hive/gha-yarn-cache@v2
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: git fetch origin main
+      - name: Install packages
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
       - env:
           ENV: ${{ inputs.service-env }}
         name: Install and Deploy
         id: install
         if: ${{ github.event_name == 'pull_request' }}
         run: |-
-          yarn install
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=remotes/origin/main HEAD=$GITHUB_REF --env=default
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
