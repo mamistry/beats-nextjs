@@ -1,0 +1,8 @@
+web:
+  component: '@sls-next/serverless-component@3.7.0-alpha.11'
+  inputs:
+    build:
+      args: ""
+      cmd: ./build.sh
+    deploy: false
+    nextConfigDir: ../
