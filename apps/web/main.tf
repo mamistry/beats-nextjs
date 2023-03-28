@@ -120,7 +120,7 @@ module "template_files" {
 }
 
 module "cloudfront_s3" {
-  source                           = "git@github.com:mamistry/tf-aws-nextjs.git"
+  source                           = "git@github.com:warnermediacode/sports-terraform-aws-nextjs-module.git"
   providers = {
     aws = aws.us_east_1
   }
