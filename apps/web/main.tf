@@ -79,11 +79,11 @@ variable "cloudfront_cert" {
 # Note: The bucket name needs to carry the same name as the domain!
 # http://stackoverflow.com/a/5048129/2966951
 resource "aws_s3_bucket" "beats-nextjs-bucket" {
-  bucket = "${var.env}-beats-nextjs"
+  bucket = "beatsnext-${var.env}"
 }
 
 resource "aws_cloudfront_origin_access_identity" "my-oai" {
-  comment = "my-oai"
+  comment = "beatsnext-${var.env}"
 }
 
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
