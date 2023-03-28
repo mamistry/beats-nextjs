@@ -75,6 +75,7 @@ jobs:
         working-directory: ./apps/web
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"
           terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -input=false -no-color -compact-warnings -out=tf.plan
           terraform show -no-color tf.plan 2>&1 > plan.txt
