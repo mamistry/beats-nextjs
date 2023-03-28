@@ -64,7 +64,6 @@ jobs:
           ENV: ${{ inputs.service-env }}
         name: Install and Deploy
         id: install
-        if: ${{ github.event_name == 'pull_request' }}
         run: |-
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=remotes/origin/main HEAD=$GITHUB_REF --env=default
@@ -133,9 +132,11 @@ jobs:
               })
             }
       - name: Terraform Apply
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.ref == 'refs/heads/main') && (github.event_name == 'push') }}
         working-directory: ./apps/web
-        run: echo "terraform apply tf.plans"
+        run: |-
+          terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
+          terraform apply -auto-approve -input=false
   Test:
     name: Test
     runs-on: ubuntu-latest
