@@ -76,7 +76,7 @@ jobs:
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
+          terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
           terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -input=false -no-color -compact-warnings -out=tf.plan
           terraform show -no-color tf.plan 2>&1 > plan.txt
           echo "PLAN<<$EOF" >> $GITHUB_ENV
