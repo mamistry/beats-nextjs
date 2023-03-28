@@ -46,10 +46,10 @@ jobs:
           key: ${{ secrets.SSH_DEPLOY_KEY }}
           known_hosts: github.com
           name: id_rsa
-      - name: Install terraform
-        uses: little-core-labs/install-terraform@v2.0.0
+      - uses: hashicorp/setup-terraform@v2
         with:
-          version: 0.14.8
+          terraform_version: 0.14.8
+          terraform_wrapper: false
       - uses: c-hive/gha-yarn-cache@v2
       - run: git fetch origin main
       - env:
