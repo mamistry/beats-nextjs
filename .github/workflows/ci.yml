@@ -81,7 +81,6 @@ jobs:
       - name: Update Pull Request
         uses: actions/github-script@v6
         if: ${{ github.event_name == 'pull_request' }}
-        working-directory: ./apps/web
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -94,7 +93,7 @@ jobs:
               return comment.user.type === 'Bot' && comment.body.includes('# Terraform Plan for ${{ inputs.service-env }}')
             })
             const fs = require("fs");
-            const plan = fs.readFileSync("plan.txt", "utf8");
+            const plan = fs.readFileSync("/apps/web/plan.txt", "utf8");
             let output = `# Terraform Plan for ${{ inputs.service-env }}
             #### Terraform Plan (may be truncated to 100kbytes)
             <details><summary>Show Plan</summary>
