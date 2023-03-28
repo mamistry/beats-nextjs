@@ -64,6 +64,7 @@ jobs:
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
       - name: Check if run project
         if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.event_name == 'pull_request') }}
+        working-directory: ./apps/web
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"
@@ -114,6 +115,7 @@ jobs:
             }
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
+        working-directory: ./apps/web
         run: echo "terraform apply tf.plan"
   Test:
     name: Test
