@@ -68,8 +68,10 @@ jobs:
         run: |-
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           terraform init -backend-config="bucket=tf-state-br-nodereport-temp2" -backend-config="key=br-nodereport/development/terraform.tfstate" -backend-config="region=us-east-2"
-          terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -out=tf.plan -input=false -no-color
-          terraform show -no-color tf.plan 2>&1 > plan.txt
+          terraform plan -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -input=false -no-color -compact-warnings > plan.out 2>&1 || { echo "Error occurred while executing 'terraform plan' command"; cat plan.out; exit 1; }
+          echo "PLAN<<$EOF" >> $GITHUB_ENV
+          tail --bytes=100000 plan.out >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
       - name: Update Pull Request
         uses: actions/github-script@v6
         if: ${{ github.event_name == 'pull_request' }}
@@ -116,7 +118,7 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
         working-directory: ./apps/web
-        run: echo "terraform apply tf.plan"
+        run: echo "terraform apply plan.out"
   Test:
     name: Test
     runs-on: ubuntu-latest
