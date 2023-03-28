@@ -62,6 +62,14 @@ jobs:
           NODE_ENV=${{ inputs.service-env }} yarn nx affected --target=build --base=remotes/origin/main HEAD=$GITHUB_REF
           yarn nx affected --target=deploy --base=remotes/origin/main HEAD=$GITHUB_REF --env=${{ inputs.service-env }}
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=remotes/origin/main HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)" >> $GITHUB_ENV
+      - name: Terraform Format
+        id: fmt
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "FMT<<$EOF" >> $GITHUB_ENV
+          echo "$(terraform fmt -check -no-color -diff)" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
       - name: Check if run project
         if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.event_name == 'pull_request') }}
         working-directory: ./apps/web
