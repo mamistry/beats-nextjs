@@ -59,7 +59,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/br-web-components",
+        "outputPath": "dist/storybook/beatsnext-web-components",
         "config": {
           "configFolder": "libs/web-components/.storybook"
         }

@@ -1,5 +1,5 @@
 locals {
-  build_dir =  var.build_dir == null ?  "${path.cwd}/dist/storybook/${var.service}/" : "${path.cwd}/${var.build_dir}"
+  build_dir =  var.build_dir == null ?  "${path.cwd}/../../../dist/storybook/${var.service}/" : "${path.cwd}/${var.build_dir}"
 }
 
 
