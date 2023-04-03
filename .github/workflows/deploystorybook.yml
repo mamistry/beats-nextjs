@@ -34,15 +34,23 @@ jobs:
         with:
           terraform_version: 0.14.8
           terraform_wrapper: false
-      - uses: c-hive/gha-yarn-cache@v2
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: |
+          yarn top-jfrog-login
+          yarn
       - env:
           ENV: dev
         name: Install
         run: |
           git rev-parse @~
           echo $ENV
-          yarn top-jfrog-login
-          yarn install
           NODE_ENV=dev yarn nx affected --target=build --base=$(git rev-parse @~) HEAD=$GITHUB_REF
           echo "GITHUB_WEB_DEPLOY=$(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web-components)" >> $GITHUB_ENV
       - name: Terraform Apply
