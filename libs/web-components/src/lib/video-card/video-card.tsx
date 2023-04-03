@@ -21,7 +21,7 @@ export type AssetProps = {
   img: string;
 };
 
-export const VideoCard = ({ url, img }: AssetProps) => {
+export const VideoCard = ({ img }: AssetProps) => {
   return (
     <CardComp>
       <CardActionArea component="a">
