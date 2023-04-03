@@ -1,6 +1,6 @@
 //Create an S3 bucket to store the config
 resource "aws_s3_bucket" "this" {
-  bucket        = "br-storybook-${var.service}-${var.env}"
+  bucket        = "${var.service}-${var.env}"
   force_destroy = true
   server_side_encryption_configuration {
     rule {
