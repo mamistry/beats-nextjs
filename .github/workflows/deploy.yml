@@ -72,8 +72,14 @@ jobs:
         if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.ref == 'refs/heads/main') && (github.event_name == 'push') }}
         working-directory: ./apps/web
         run: |-
-          terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-2"
+          terraform init -backend-config="bucket=beatsnext-terraform-state" -backend-config="key=beatsnext/"${{ inputs.service-env }}"/terraform.tfstate" -backend-config="region=us-east-1"
           terraform apply -var-file="./deploy/"${{ inputs.service-env }}".tfvars" -auto-approve -input=false
+      - name: s3 sync
+        if: ${{ (env.GITHUB_WEB_DEPLOY == 'web') && (github.ref == 'refs/heads/main') && (github.event_name == 'push') }}
+        working-directory: ./apps/web
+        run: |-
+          node filesync.js
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CDN_DISTRIBUTION_ID }} --paths "/*" --region us-east-1
   Test:
     name: Test
     runs-on: ubuntu-latest
