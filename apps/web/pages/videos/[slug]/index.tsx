@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths<VideoProps> = async () => {
     paths,
     // { fallback: blocking } will server-render pages
     // on-demand if the path doesn't exist.
-    fallback: true,
+    fallback: 'blocking',
   };
 };
 
