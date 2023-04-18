@@ -26,6 +26,7 @@ const generateCacheArray = () => {
 }
 
 const syncS3 = async () => { 
+  console.log(cache_routes);
   await sync('./deploy/.serverless_nextjs/assets', 's3://beatsnext-int', { 
     del: true,
     commandInput: {
@@ -47,6 +48,7 @@ const cacheControlLookup = (key) => {
   if (key.match(regEx_publicIMG)) return "public, max-age=31536000, must-revalidate";
   if (key.match(regEx_staticPageDIR)) {
     const splitRoute = key.split("/").slice(2).join('/');
+    console.log(splitRoute);
     if (splitRoute in cache_routes) {
       if (cache_routes[splitRoute] === 0) return "public, max-age=0, s-maxage=0, must-revalidate";
     } else {  
