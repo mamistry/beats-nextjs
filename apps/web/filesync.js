@@ -47,6 +47,8 @@ const cacheControlLookup = (key) => {
   if (key.match(regEx_staticDIR)) return "public, max-age=31536000, immutable";
   if (key.match(regEx_publicIMG)) return "public, max-age=31536000, must-revalidate";
   if (key.match(regEx_staticPageDIR)) {
+    console.log('STATIC: ' + key);
+    console.log(key);
     const splitRoute = key.split("/").slice(2).join('/');
     console.log(splitRoute);
     if (splitRoute in cache_routes) {
@@ -56,6 +58,7 @@ const cacheControlLookup = (key) => {
     }
   }
   if (key.match(regEx_dataDIR)) {
+    console.log('DATA: ' + key);
     if (key in cache_routes) {
       if (cache_routes[key] === 0) return "public, max-age=0, s-maxage=0, must-revalidate";
     } else {  
