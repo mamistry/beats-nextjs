@@ -4,6 +4,8 @@ import Head from 'next/head';
 import './styles.css';
 import { ApolloProvider } from '@apollo/client';
 
+//chase
+
 type AppPropsWithLayout = AppProps & {
   Component: AppProps["Component"] & {
     PageLayout?: NextLayoutComponentType;
