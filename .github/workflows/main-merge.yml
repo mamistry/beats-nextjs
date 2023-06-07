@@ -1,8 +1,7 @@
-name: pr builds for dev
+name: main merge
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 jobs:
   nonprod-pr-dev:
     uses: ./.github/workflows/deploy.yml
