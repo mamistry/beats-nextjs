@@ -4,7 +4,7 @@ import Head from 'next/head';
 import './styles.css';
 import { ApolloProvider } from '@apollo/client';
 
-//chase
+//chase2
 
 type AppPropsWithLayout = AppProps & {
   Component: AppProps["Component"] & {
