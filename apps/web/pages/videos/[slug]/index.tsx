@@ -2,6 +2,7 @@
 import { GetStaticPaths } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
+import { VideoCard } from '@beats-nextjs/web-components';
 
 /* eslint-disable-next-line */
 export interface VideoProps extends ParsedUrlQuery {
@@ -22,6 +23,7 @@ export function Video(props: VideoDetailProps) {
   return (
     <div>
       <h1>Welcome to the Video Page! </h1>
+      <VideoCard />
     </div>
   );
 }
