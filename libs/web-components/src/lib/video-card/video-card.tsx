@@ -17,11 +17,10 @@ const ImageComp = styled('div')({
 });
 
 export type AssetProps = {
-  url: string;
   img: string;
 };
 
-export const VideoCard = ({ url, img }: AssetProps) => {
+export const VideoCard = ({ img }: AssetProps) => {
   return (
     <CardComp>
       <CardActionArea component="a">
