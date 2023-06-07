@@ -23,7 +23,7 @@ export function Video(props: VideoDetailProps) {
   return (
     <div>
       <h1>Welcome to the Video Page! </h1>
-      <VideoCard />
+      <VideoCard img={"https://media.bleacherreport.com/image/upload/x_93,y_62,w_1702,h_1133,c_crop/w_800,h_533,c_fill/v1683134829/vtjsrugb17dv8y1oqt6s.jpg"} />
     </div>
   );
 }
