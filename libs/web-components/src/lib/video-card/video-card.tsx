@@ -26,7 +26,7 @@ export const VideoCard = ({ img }: AssetProps) => {
       <CardActionArea component="a">
         <CardContent>
           <ImageComp>
-            <img src={img} alt="help" height={250} width={250} />
+            <img src={img} alt="helps" height={250} width={250} />
           </ImageComp>
         </CardContent>
       </CardActionArea>
