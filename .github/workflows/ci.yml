@@ -58,8 +58,10 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - run: git fetch origin main
       - name: Install packages
+        shell: bash
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
+      - run: echo $(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr "," "\n"
       - run: echo $(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)
       - run: echo "$(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr "," "\n" | grep -x web)"
       - run: echo "$(npx nx print-affected --base=$(git rev-parse @~) HEAD=$GITHUB_REF --select=projects | tr ',' '\n' | grep -x web)"
