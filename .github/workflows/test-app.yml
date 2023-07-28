@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  workflow_call:
+
+env:
+  NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+  NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
+  NPM_USERNAME: ${{ secrets.NPM_USERNAME }}
+jobs:
+  test:
+    name: Test        
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/setup-action
+        name: Setting up github action
+        with:
+          npm_email: ${{ secrets.NPM_EMAIL }}
+          npm_password: ${{ secrets.NPM_PASSWORD }}
+          npm_username: ${{ secrets.NPM_USERNAME }}
+      - name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          command: CYPRESS_CACHE_FOLDER=./tmp/Cypress npx nx e2e web-e2e
+        env:
+          CYPRESS_fileConfig: prod
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
