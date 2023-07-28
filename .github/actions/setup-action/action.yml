@@ -33,5 +33,4 @@ runs:
       shell: bash
       if: steps.yarn-cache.outputs.cache-hit != 'true'
       run: |-
-        yarn top-jfrog-login
         yarn
